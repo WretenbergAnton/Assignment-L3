@@ -26,3 +26,5 @@ app.listen(PORT, async () => {
   console.log(`Subscription Tracker API is running on http://localhost:${PORT}`)
   await connectToDatabase()
 })
+
+export default app
