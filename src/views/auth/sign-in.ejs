@@ -1,0 +1,31 @@
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-badge">
+      <img src="/images/hantel.png" alt="hantel" class="badge-icon-img" />
+    </div>
+
+    <h1 class="auth-title">Welcome back</h1>
+
+    <% if (typeof error !== "undefined") { %>
+      <p style="color: #ff6b6b; font-weight: bold; margin-bottom: 1rem;">
+        <%= error %>
+      </p>
+    <% } %>
+
+    <form class="auth-form" action="/api/v1/auth/sign-in" method="post" novalidate>
+      <label class="auth-label">Email address
+        <input class="auth-input" type="email" name="email" placeholder="Your email address" required />
+      </label>
+
+      <label class="auth-label">Password
+        <input class="auth-input" type="password" name="password" placeholder="Your password" required />
+      </label>
+
+      <button class="auth-btn" type="submit">Sign in</button>
+    </form>
+
+    <p class="auth-meta">
+      Don’t have an account? <a href="/register">Sign up</a>
+    </p>
+  </div>
+</div>

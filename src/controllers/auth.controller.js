@@ -1,88 +1,98 @@
-import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import ms from "ms";
 import User from "../models/user.model.js";
-import { JWT_SECRET, JWT_EXPIRES_IN } from "../config/env.js";
+import { JWT_SECRET, JWT_EXPIRES_IN, NODE_ENV } from "../config/env.js";
+
+// Sätt cookie
+const setAuthCookie = (res, token) => {
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: ms(JWT_EXPIRES_IN || "30d"), // cookie livslängd = JWT_EXPIRES_IN
+  });
+};
 
 export const signUp = async (req, res, next) => {
-
-  const session = await mongoose.startSession();
-  session.startTransaction();
-
   try {
     const { username, email, password } = req.body;
 
-    const existingUser = await User.findOne({ email });
-
-    if (existingUser) {
-      const error = new Error("Email is already in use");
-      error.status = 409;
-      throw error;
+    if (!username || !email || !password) {
+      return res.render("auth/sign-up", {
+        title: "Register",
+        error: "Please fill in all fields",
+      });
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(password, salt);
+    // kolla om email finns
+    const exists = await User.findOne({ email });
+    if (exists) {
+      return res.render("auth/sign-up", {
+        title: "Register",
+        error: "Email is already in use",
+      });
+    }
 
-    const newUser = await User.create([{ username, email, password: hashPassword }], { session: session })
+    const hash = await bcrypt.hash(password, 10);
+    const user = await User.create({ username, email, password: hash });
 
-    const token = jwt.sign({ userId: newUser[0]._id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN })
+    // skapa token + cookie
+    const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
+      expiresIn: JWT_EXPIRES_IN || "30d",
+    });
+    setAuthCookie(res, token);
 
-    await session.commitTransaction();
-    session.endSession();
-
-    res.status(201).json({
-      success: true,
-      message: "User created successfully",
-      data: {
-        token,
-        user: newUser[0]
-      }
-    })
-  } catch (error) {
-    await session.abortTransaction();
-    session.endSession();
-    next(error)
+    // redirect
+    return res.redirect("/dashboard");
+  } catch (err) {
+    next(err);
   }
-}
+};
 
 export const signIn = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email })
+    if (!email || !password) {
+      return res.render("auth/sign-in", {
+        title: "Login",
+        error: "Please fill in both email and password",
+      });
+    }
 
+    const user = await User.findOne({ email });
     if (!user) {
-      const error = new Error("Invalid credentials");
-      error.status = 401;
-      throw error;
+      return res.render("auth/sign-in", {
+        title: "Login",
+        error: "Invalid credentials",
+      });
     }
 
-    const passwordMatch = await bcrypt.compare(password, user.password)
-
-    if (!passwordMatch) {
-      const error = new Error("Invalid credentials");
-      error.status = 401;
-      throw error;
+    const ok = await bcrypt.compare(password, user.password);
+    if (!ok) {
+      return res.render("auth/sign-in", {
+        title: "Login",
+        error: "Invalid credentials",
+      });
     }
-    
-    const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN })
 
-    res.status(200).json({
-      success: true,
-      data: {
-        token,
-        user
-      }
-    })
-  } catch (error) {
-    next(error)
+    const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
+      expiresIn: JWT_EXPIRES_IN || "30d",
+    });
+    setAuthCookie(res, token);
+
+    return res.redirect("/dashboard");
+  } catch (err) {
+    next(err);
   }
-}
+};
 
 export const signOut = (req, res, next) => {
   try {
-    
-  } catch (error) {
-    
+    res.clearCookie("token");
+    return res.redirect("/login");
+  } catch (err) {
+    next(err);
   }
-}
+};

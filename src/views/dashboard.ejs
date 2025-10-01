@@ -1,0 +1,13 @@
+<h2>Welcome <%= user.username %>!</h2>
+<p>Your email: <%= user.email %></p>
+
+<h3>Your workouts</h3>
+<ul>
+  <% if (items && items.length === 0) { %>
+    <li>No workouts yet.</li>
+  <% } else { %>
+    <% items.forEach(w => { %>
+      <li><strong><%= w.name %></strong> — <%= w.date %></li>
+    <% }) %>
+  <% } %>
+</ul>
