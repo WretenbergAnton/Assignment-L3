@@ -1,14 +1,29 @@
 <header class="site-header">
-  <nav>
-    <h1>Workout App</h1>
-    <ul>
-      <li><a href="/dashboard">Dashboard</a></li>
-      <li><a href="/workouts">Workouts</a></li>
-      <li>
-        <form action="/api/v1/auth/sign-out" method="post" style="display:inline;">
-          <button type="submit">Sign out</button>
-        </form>
-      </li>
-    </ul>
-  </nav>
+  <div class="brand">
+    <div class="logo">WT</div>
+    <div>
+      <div class="title">Workout Tracker</div>
+      <div class="subtitle">
+        Log workouts, add sets, see weekly summaries & PRs • autosaves to
+        localStorage
+      </div>
+    </div>
+  </div>
+  <div class="navbar">
+    <button class="nav-btn">
+      <a href="/dashboard">Dashboard</a>
+    </button>
+    <button class="nav-btn">
+      <a href="/workout">Create Workout</a>
+    </button>
+    <form
+    action="/api/v1/auth/sign-out"
+    method="post"
+    style="display: inline"
+    >
+    <button class="nav-btn">
+        Sign out
+      </button>
+      </form>
+  </div>
 </header>
