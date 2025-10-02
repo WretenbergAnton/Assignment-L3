@@ -1,20 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="sv">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title><%= title || 'App' %></title>
-  <link rel="stylesheet" href="/styles.css" />
-</head>
-<body>
-  <div class="page-wrapper">
-    <%- include('partials/header') %>
-
-    <main class="content">
-      <%- body %>
-    </main>
-
-    <%- include('partials/footer') %>
-  </div>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%= title || 'App' %></title>
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/auth.css" />
+    <link rel="stylesheet" href="/css/header&footer.css" />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <main class="content"><%- body %></main>
+      <%- include('partials/footer') %>
+    </div>
+  </body>
 </html>
