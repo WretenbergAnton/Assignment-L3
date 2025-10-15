@@ -1,17 +1,18 @@
 import { Router } from "express";
 import authorize from "../middlewares/auth.middleware.js";
+import { WorkoutController } from "../controllers/WorkoutController.js";
 
-const workoutRouter = Router()
+const workoutRouter = Router();
+const controller = new WorkoutController();
 
-workoutRouter.use(authorize)
+workoutRouter.use(authorize);
 
-workoutRouter.get('/', (req, res) => res.send({ title: 'Get All Workouts' }))
-workoutRouter.post('/', (req, res) => res.send({ title: 'Create Workout' }))
-/* 
-workoutRouter.get('/:id', getWorkoutWithStats)
-workoutRouter.post('/:id/exercises', addExercise)
-workoutRouter.post('/:id/sets/strength', addStrengthSet)
-workoutRouter.post('/:id/sets/endurance', addEnduranceSet)
- */
+workoutRouter.post("/create-with-set", (req, res, next) => 
+  controller.createWithSet(req, res, next)
+);
 
-export default workoutRouter
+workoutRouter.delete("/:id", (req, res, next) => 
+  controller.deleteWorkout(req, res, next)
+);
+
+export default workoutRouter;

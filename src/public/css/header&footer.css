@@ -1,11 +1,6 @@
-/* ----- header ----- */
-
-body {
-  background: radial-gradient(
-      1000px 700px at -10% -10%,
-      #24335b 0%,
-      transparent 60%
-    ),
+.has-hero-bg {
+  background:
+    radial-gradient(1000px 700px at -10% -10%, #24335b 0%, transparent 60%),
     radial-gradient(900px 700px at 120% 0%, #1a2957 0%, transparent 60%),
     linear-gradient(180deg, var(--bg), #081022 70%);
 }
@@ -15,7 +10,6 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 40px;
-
 }
 
 .brand {
@@ -23,17 +17,19 @@ body {
   align-items: center;
   gap: 14px;
 }
+
 .logo {
   width: 48px;
   height: 48px;
-  border-radius: 14px;
+  border-radius: var(--r-lg);
   background: linear-gradient(135deg, var(--brand), var(--brand-2));
   display: grid;
   place-items: center;
-  color: white;
+  color: #fff;
   font-weight: 900;
   box-shadow: var(--shadow);
 }
+
 .title {
   font-weight: 900;
   font-size: clamp(22px, 4vw, 30px);
@@ -41,33 +37,39 @@ body {
 
 .subtitle {
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--fs-sm);
 }
 
+/* NAV button – matches your general .btn feel */
 .nav-btn {
-       background: rgba(255,255,255,.04);
-      border: var(--border);
-      color: var(--text);
-      padding: 12px;
-      border-radius: var(--r-md);
-      outline: none;
-      transition: .15s ease;
+  background: rgba(255, 255, 255, .04);
+  border: var(--border);
+  color: var(--text);
+  padding: 12px;
+  border-radius: var(--r-md);
+  outline: none;
+  transition: filter .15s ease, transform .05s ease, box-shadow .15s ease;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .nav-btn:hover {
-      background: rgba(255,255,255,.06);
-      box-shadow: var(--shadow);
-      transform: translateY(-1px);
+  background: rgba(255, 255, 255, .06);
+  box-shadow: var(--shadow);
+  transform: translateY(-1px);
 }
 
-.nav-btn a{
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 600;
+/* If you keep <a> inside a .nav-btn wrapper */
+.nav-btn a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
 }
 
-/* ----- footer ----- */
-
+/* ----- Footer ----- */
 .site-footer {
   background: #111a2e;
   color: #fff;
@@ -75,4 +77,5 @@ body {
   text-align: center;
   font-size: 0.9rem;
   opacity: 0.7;
+  border-top: var(--border);
 }

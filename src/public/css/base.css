@@ -1,5 +1,6 @@
 /* ----- Base dark (CSS variables + global) ----- */
 :root {
+  /* Colors */
   --bg: #0a1020;
   --bg-2: #0d152a;
   --panel: #121a2e;
@@ -12,35 +13,54 @@
   --ok: #42d392;
   --warn: #ffd166;
   --err: #ff6b6b;
+
+  /* Buttons / accents */
+  --btn: #46e0b6;
+  --btn-shadow: #1b3b34;
+
+  /* Effects */
   --ring: 0 0 0 3px rgba(122, 162, 255, 0.28);
+  --ring-glow: rgba(122, 162, 255, 0.20);
   --border: 1px solid rgba(255, 255, 255, 0.08);
   --shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+
+  /* Shape & spacing */
   --r-xl: 20px;
   --r-lg: 14px;
   --r-md: 10px;
   --gap: 16px;
+
+  /* Type scale */
+  --fs-sm: 13px;
+  --fs-base: 14px;
 }
 
-* {
-  box-sizing: border-box;
-}
+*,
+*::before,
+*::after { box-sizing: border-box; }
 
-html,
-body {
-  height: 100%;
-}
+html, body { height: 100%; }
+
+:root { color-scheme: dark; }
 
 body {
   margin: 0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
-    "Helvetica Neue", Arial;
+  font-family: ui-sans-serif, Arial, Helvetica, sans-serif;
   color: var(--text);
-  background: radial-gradient(
-      1200px 600px at 80% -10%,
-      #14306a44 0%,
-      transparent 60%
-    ),
+  background:
+    radial-gradient(1200px 600px at 80% -10%, #14306a44 0%, transparent 60%),
     radial-gradient(800px 500px at -10% 100%, #0a3d3255 0%, transparent 60%),
     var(--bg);
 }
 
+/* Utility container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 22px;
+}
+
+/* Motion-reduced users */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

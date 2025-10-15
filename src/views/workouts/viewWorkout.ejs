@@ -1,0 +1,109 @@
+<h1 class="page-title">Workout Details</h1>
+
+<section class="card">
+  <div class="workout-header">
+    <div>
+      <h2><%= workout.date %></h2>
+      <span class="pill <%= workout.type === 'strength' ? 'pill--strength' : (workout.type === 'endurance' ? 'pill--endurance' : 'pill--mixed') %>">
+        <%= workout.type %>
+      </span>
+    </div>
+    <a href="/dashboard" class="btn btn--secondary">Back to Dashboard</a>
+  </div>
+
+  <% if (workout.exercises && workout.exercises.length > 0) { %>
+    <% workout.exercises.forEach((exercise, exIndex) => { %>
+      <div class="exercise-section">
+        <h3 class="exercise-name"><%= exercise.name %></h3>
+        
+        <% if (exercise.sets && exercise.sets.length > 0) { %>
+          <div class="sets-container">
+            <% exercise.sets.forEach((set, setIndex) => { %>
+              <div class="set-card">
+                <div class="set-header">
+                  <span class="set-number">Set <%= setIndex + 1 %></span>
+                  <span class="set-type <%= set.kind %>"><%= set.kind %></span>
+                </div>
+                
+                <div class="set-details">
+                  <% if (set.kind === 'strength') { %>
+                    <div class="detail-item">
+                      <span class="detail-label">Reps:</span>
+                      <span class="detail-value"><%= set.reps %></span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Weight:</span>
+                      <span class="detail-value"><%= set.weightKg %> kg</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Volume:</span>
+                      <span class="detail-value"><%= (set.reps * set.weightKg).toFixed(0) %> kg</span>
+                    </div>
+                  <% } else if (set.kind === 'endurance') { %>
+                    <div class="detail-item">
+                      <span class="detail-label">Distance:</span>
+                      <span class="detail-value"><%= set.distanceKm %> km</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Duration:</span>
+                      <span class="detail-value"><%= Math.floor(set.durationMin) %>:<%= String(Math.round((set.durationMin % 1) * 60)).padStart(2, '0') %></span>
+                    </div>
+                  <% } %>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+        <% } %>
+      </div>
+    <% }) %>
+  <% } %>
+
+  <% if (stats) { %>
+    <div class="stats-section">
+      <h3>Calculated Statistics (from WorkoutTracker module)</h3>
+      
+      <div class="stats-grid">
+        <% if (stats.strengthVolumeKg > 0) { %>
+          <div class="stat-box">
+            <div class="stat-label">Total Volume</div>
+            <div class="stat-value"><%= stats.strengthVolumeKg.toFixed(0) %> kg</div>
+          </div>
+        <% } %>
+
+        <% if (stats.endurance) { %>
+          <div class="stat-box">
+            <div class="stat-label">Total Distance</div>
+            <div class="stat-value"><%= stats.endurance.distanceKm.toFixed(2) %> km</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Duration</div>
+            <div class="stat-value"><%= stats.enduranceFmt.duration %></div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Average Pace</div>
+            <div class="stat-value"><%= stats.enduranceFmt.pace %></div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Speed</div>
+            <div class="stat-value"><%= stats.enduranceFmt.speed %></div>
+          </div>
+        <% } %>
+
+        <% if (stats.details && stats.details.length > 0) { %>
+          <% stats.details.forEach(detail => { %>
+            <div class="stat-box">
+              <div class="stat-label"><%= detail.exercise %> - Est. 1RM</div>
+              <div class="stat-value"><%= detail.best1RM %> kg</div>
+            </div>
+          <% }) %>
+        <% } %>
+      </div>
+    </div>
+  <% } %>
+
+  <div class="actions-section">
+    <form action="/workouts/<%= workout._id %>?_method=DELETE" method="post">
+      <button type="submit" class="btn btn--danger">Delete Workout</button>
+    </form>
+  </div>
+</section>

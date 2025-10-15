@@ -1,36 +1,60 @@
-<%- include('partials/header') %>
+<h1 class="page-title">Dashboard</h1>
 
-<div class="grid">
 <section class="card">
   <h2>Recent Workouts</h2>
 
   <% if (!items || items.length === 0) { %>
-    <p>No workouts yet.</p>
+    <p>No workouts yet. <a href="/workout">Create your first workout</a></p>
   <% } else { %>
     <ul class="workout-list">
       <% items.forEach((w) => { 
            const date = w.date || '';
            const type = (w.type || '').toLowerCase();
-           const exerciseCount = (w.exercises && w.exercises.length) || w.exerciseCount || 0;
+           const exerciseCount = (w.exercises && w.exercises.length) || 0;
+           const stats = w.stats;
       %>
         <li class="workout-card">
           <div class="workout-top">
             <div class="workout-meta">
               <strong><%= date %></strong>
             </div>
-            <span class="pill <%= type === 'strength' ? 'pill--strength' : 'pill--endurance' %>">
+            <span class="pill <%= type === 'strength' ? 'pill--strength' : (type === 'endurance' ? 'pill--endurance' : 'pill--mixed') %>">
               <%= type %>
             </span>
           </div>
 
-          <div class="workout-bottom">
+          <div class="workout-middle">
             <div class="summary">
               <span><%= exerciseCount %> exercise(s)</span>
             </div>
 
+            <% if (stats) { %>
+              <div class="workout-stats">
+                <% if (stats.strengthVolumeKg > 0) { %>
+                  <div class="stat-chip">
+                    <span class="stat-label">Total Volume:</span>
+                    <span class="stat-value"><%= stats.strengthVolumeKg.toFixed(0) %> kg</span>
+                  </div>
+                <% } %>
+
+                <% if (stats.enduranceFmt) { %>
+                  <div class="stat-chip">
+                    <span class="stat-label">Distance:</span>
+                    <span class="stat-value"><%= stats.enduranceFmt.distance %></span>
+                  </div>
+                  <div class="stat-chip">
+                    <span class="stat-label">Pace:</span>
+                    <span class="stat-value"><%= stats.enduranceFmt.pace %></span>
+                  </div>
+                <% } %>
+              </div>
+            <% } %>
+          </div>
+
+          <div class="workout-bottom">
             <div class="actions">
-              <a class="btn btn--ghost" href="/workouts/<%= w._id || '#' %>">View</a>
-              <form action="/workouts/<%= w._id || '#' %>?_method=DELETE" method="post" style="display:inline">
+              <a class="btn btn--primary" href="/workouts/<%= w._id %>">View</a>
+              <form action="/workouts/<%= w._id %>?_method=DELETE" method="post" style="display:inline">
                 <button type="submit" class="btn btn--danger">Delete</button>
               </form>
             </div>
@@ -41,26 +65,3 @@
   <% } %>
 </section>
 
-
-  <aside class="card">
-    <h2>Weekly Summary</h2>
-    <div class="stats">
-      <div class="stat">
-        <h3>Strength Volume</h3>
-        <p class="stat-text">0 kg</p>
-      </div>
-      <div class="stat">
-        <h3>Endurance Distance</h3>
-        <p class="stat-text">0:00 Km</p>
-      </div>
-      <div class="stat">
-        <h3>Endurance Time</h3>
-        <p class="stat-text">0:00</p>
-      </div>
-    </div>
-
-    <hr class="hr" />
-    <h2>Selected Workout</h2>
-    <div class="show-workout">Pick a workout to view details.</div>
-  </aside>
-</div>

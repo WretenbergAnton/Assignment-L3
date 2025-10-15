@@ -4,12 +4,11 @@
     <div>
       <div class="title">Workout Tracker</div>
       <div class="subtitle">
-        Log workouts, add sets, see weekly summaries & PRs • autosaves to
-        localStorage
+        Log workouts and view statistics using WorkoutTracker module
       </div>
     </div>
   </div>
-  <div class="navbar">
+  <nav class="navbar">
     <button class="nav-btn">
       <a href="/dashboard">Dashboard</a>
     </button>
@@ -17,13 +16,13 @@
       <a href="/workout">Create Workout</a>
     </button>
     <form
-    action="/api/v1/auth/sign-out"
-    method="post"
-    style="display: inline"
+      action="/api/v1/auth/sign-out"
+      method="post"
+      style="display: inline"
     >
-    <button class="nav-btn">
+      <button class="nav-btn">
         Sign out
       </button>
-      </form>
-  </div>
+    </form>
+  </nav>
 </header>

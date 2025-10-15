@@ -1,0 +1,191 @@
+.workout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.workout-header h2 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.pill {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.pill--strength {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.pill--endurance {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.pill--mixed {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.exercise-section {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.exercise-name {
+  margin: 0 0 1rem 0;
+  color: #1976d2;
+  font-size: 1.3rem;
+}
+
+.sets-container {
+  display: grid;
+  gap: 1rem;
+}
+
+.set-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.set-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.set-number {
+  font-weight: 600;
+  color: #333;
+}
+
+.set-type {
+  padding: 0.2rem 0.6rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.set-type.strength {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.set-type.endurance {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.set-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail-label {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.detail-value {
+  font-size: 1.1rem;
+  color: #333;
+  font-weight: 700;
+}
+
+.stats-section {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
+  color: white;
+}
+
+.stats-section h3 {
+  margin: 0 0 1rem 0;
+  color: white;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.stat-box {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 1rem;
+  border-radius: 6px;
+  backdrop-filter: blur(10px);
+}
+
+.stat-box .stat-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+}
+
+.stat-box .stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.actions-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #e0e0e0;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s;
+  font-size: 1rem;
+}
+
+.btn--secondary {
+  background: #757575;
+  color: white;
+}
+
+.btn--secondary:hover {
+  background: #616161;
+}
+
+.btn--danger {
+  background: #d32f2f;
+  color: white;
+}
+
+.btn--danger:hover {
+  background: #c62828;
+}

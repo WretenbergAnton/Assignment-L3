@@ -62,6 +62,11 @@ const workoutSchema = new mongoose.Schema({
     required: true,
     match: [/^\d{4}-\d{2}-\d{2}$/, 'Date must be in YYYY-MM-DD format'], // ISO YYYY-MM-DD format
   },
+  type: {
+    type: String,
+    enum: ['strength', 'endurance', 'mixed'],
+    required: true,
+  },
   exercises: {
     type: [ExerciseSchema],
     default: [],

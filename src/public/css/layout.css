@@ -1,11 +1,5 @@
 /* ===== Layout ===== */
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 22px;
-}
-
 .dash_wrapper {
   min-height: 100dvh;
   display: flex;
@@ -19,7 +13,6 @@
 }
 
 /* ===== Grid ===== */
-
 .grid {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
@@ -31,7 +24,6 @@
 }
 
 /* ===== Cards ===== */
-
 .card {
   background: linear-gradient(180deg, var(--panel), var(--panel-2));
   border: var(--border);
@@ -46,7 +38,6 @@
 }
 
 /* ===== Stats ===== */
-
 .stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -56,7 +47,7 @@
 
 .stat {
   border: var(--border);
-  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .02));
   padding: 14px;
   border-radius: var(--r-lg);
 }
@@ -79,15 +70,13 @@
   height: 1px;
   border: 0;
   margin: 16px 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .08), transparent);
 }
 
 /* ===== Selected Workout Placeholder ===== */
-
 .show-workout { color: var(--muted); }
 
 /* ===== Workout list/cards ===== */
-
 .workout-list {
   list-style: none;
   margin: 0;
@@ -114,8 +103,7 @@
 
 .workout-meta { font-weight: 700; }
 
-/* Pills (type chips) */
-
+/* ===== Pills (type chips) ===== */
 .pill {
   font-size: 12px;
   padding: 4px 10px;
@@ -137,12 +125,10 @@
   border-color: color-mix(in oklab, var(--brand) 35%, transparent);
 }
 
-/* Summary text */
-
+/* ===== Summary text ===== */
 .summary { color: var(--muted); }
 
-/* Actions & Buttons */
-
+/* ===== Actions & Buttons ===== */
 .actions { display: inline-flex; gap: 10px; }
 
 .btn {
@@ -160,14 +146,14 @@
   border: var(--border);
   border-radius: var(--r-md);
   box-shadow: none;
-  transition: filter .12s ease, transform .02s ease;
+  transition: filter .12s ease, transform .02s ease, box-shadow .12s ease;
 }
 
 .btn:hover { filter: brightness(1.08); }
 .btn:active { transform: translateY(1px); }
 
 .btn--ghost {
-  background: #111827;            /* keeps subtle contrast; swap to var if desired */
+  background: #111827; /* optional: swap to a var if desired */
   border: var(--border);
 }
 

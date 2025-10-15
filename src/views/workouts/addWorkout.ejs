@@ -1,0 +1,77 @@
+<h1 class="page-title">Add Exercise & Set</h1>
+
+<section class="card form-card">
+  <form id="oneForm" class="form-grid">
+    <!-- Row 1 -->
+    <div class="field">
+      <label class="field__label" for="workoutDate">Day</label>
+      <input id="workoutDate" type="date" required class="field__control" />
+    </div>
+
+    <div class="field">
+      <label class="field__label" for="exName">Exercise</label>
+      <input id="exName" class="field__control" placeholder="e.g. Bench Press" required />
+    </div>
+
+    <div class="field">
+      <label class="field__label" for="setType">Set Type</label>
+      <select id="setType" class="field__control">
+        <option value="strength">Strength</option>
+        <option value="endurance">Endurance</option>
+      </select>
+    </div>
+
+    <hr class="hr hr--tight">
+
+    <!-- Strength -->
+    <div class="subsection strength-row">
+      <div class="subsection__title pill pill--strength">Strength</div>
+      <div class="subgrid subgrid--2">
+        <div class="field">
+          <label class="field__label" for="reps">Reps</label>
+          <input id="reps" type="number" min="1" placeholder="5" class="field__control" />
+        </div>
+        <div class="field">
+          <label class="field__label" for="weightKg">Weight (kg)</label>
+          <input id="weightKg" type="number" step="0.5" min="0.5" placeholder="80" class="field__control" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Endurance -->
+    <div class="subsection endurance-row is-hidden">
+      <div class="subsection__title pill pill--endurance">Endurance</div>
+      <div class="subgrid subgrid--3">
+        <div class="field">
+          <label class="field__label" for="distanceKm">Distance (km)</label>
+          <input id="distanceKm" type="number" step="0.01" min="0.01" placeholder="5" class="field__control" />
+        </div>
+        <div class="field">
+          <label class="field__label" for="minutes">Minutes</label>
+          <input id="minutes" type="number" min="0" placeholder="25" class="field__control" />
+        </div>
+        <div class="field">
+          <label class="field__label" for="seconds">Seconds</label>
+          <input id="seconds" type="number" min="0" max="59" placeholder="0" class="field__control" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="form-actions">
+      <button class="btn" id="addSetBtn" type="button">Add Set</button>
+    </div>
+  </form>
+</section>
+
+<script src="/js/addWorkout.js"></script>
+
+<style>
+.grid-3 { display:grid; grid-template-columns: repeat(3,minmax(0,1fr)); }
+.grid-3 > * { min-width:0; }
+.row { display:grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap:12px; grid-column:1 / -1; }
+@media (max-width: 720px) {
+  .grid-3 { grid-template-columns: 1fr; }
+  .row { grid-template-columns: 1fr; }
+}
+</style>
