@@ -54,13 +54,6 @@ All data sparas säkert i databasen och finns tillgänglig varje gång du loggar
 
 ## Installation (För Utvecklare)
 
-### Förutsättningar
-- Node.js v18+
-- MongoDB Atlas-konto (eller lokal MongoDB)
-- Git
-
-### Steg-för-steg
-
 **1. Klona projektet**
 ```bash
 git clone https://github.com/WretenbergAnton/workout-tracker.git

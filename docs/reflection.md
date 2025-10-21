@@ -1,6 +1,6 @@
 # Clean Code Reflektion - Workout Tracker App
 
-Reflektion om hur Clean Code-principerna från kapitel 2-11 har tillämpats i Workout Tracker-applikationen.
+Reflektion om hur Clean Code-principerna från kapitel 2-11 har tillämpats och förbättrat mitt sätt att koda.
 
 ---
 
@@ -223,7 +223,7 @@ export class WorkoutService {
 
 **Hur kapitlet påverkat koden:**
 
-"Separate Constructing a System from Using It." Min app följer MVC-arkitektur med tydlig separation: Routes → Controllers → Services → Models/Module. Varje lager har ett tydligt ansvar. Startup-kod i `app.js` är minimal och ren bara Express-konfiguration och server.listen().
+"Separate Constructing a System from Using It." Min app följer MVC-arkitektur med tydlig separation: Routes -> Controllers -> Services -> Models/Module. Varje lager har ett tydligt ansvar. Startup-kod i `app.js` är minimal och ren bara Express-konfiguration och server.listen().
 
 Dependency flow är tydligt: Controllers beror på Services, Services beror på Models och Module. ALDRIG tvärtom. Vilket gör att den följer "Dependency Inversion Principle". Systemet kan växa genom att lägga till nya klasser, inte modifiera befintliga Open-Closed Principle. Om jag vill lägga till PRs eller weekly summary skapar jag nya metoder i `WorkoutService` utan att röra befintlig kod.
 
@@ -248,11 +248,11 @@ Clean Code-principerna har fundamentalt påverkat hur jag strukturerar kod. De v
 4. **Wrapped Boundaries** (Kap 8) isolerar beroenden till moduler
 5. **Single Responsibility** (Kap 10) gör klasser små och fokuserade
 
-Den största utmaningen var att balansera DRY (Don't Repeat Yourself) med läsbarhet. Ibland är lite duplicering bättre än komplext abstraktion. En annan insikt: Clean Code handlar inte om att följa regler blint, utan att göra koden lätt att förstå för nästa utvecklare (inklusive framtida jag själv).
+Den största utmaningen var att balansera DRY med läsbarhet. Ibland är lite duplicering bättre än komplext abstraktion. En annan insikt: Clean Code handlar inte om att följa regler blint, utan att göra koden lätt att förstå för nästa utvecklare inklusive framtida jag själv.
 
 Genom att tillämpa dessa principer har jag skapat en kodbas som är:
 - **Lätt att förstå** - Tydliga namn och små metoder
 - **Lätt att ändra** - Separation of concerns och wrapped boundaries
 - **Lätt att testa** - Single responsibility och dependency injection
 
-Clean Code är inte en destination utan en resa varje gång jag läser koden ser jag förbättringsmöjligheter.
+Jag har insett att Clean Code int är något som man uppnår och sen är man klar, utan en kontinuerlig förbättringsprocess. Vid varje genomgång av koden identifierar jag nya förbättringsområden.
