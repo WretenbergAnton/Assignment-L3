@@ -96,15 +96,15 @@ En enkel webbapplikation där användare kan logga träningspass (styrka/konditi
 **NFR1.2 Clean Code**
 - Använda mig av Clean Code boken kapitel 2-11
 - Meaningful names (Kap 2)
-- Small functions (Kap 3)
-- Self-documenting code (Kap 4)
-- Consistent formatting (Kap 5)
-- Encapsulation (Kap 6)
+- Functions (Kap 3)
+- Comments (Kap 4)
+- Formatting (Kap 5)
+- Objects and Data Structures (Kap 6)
 - Error handling (Kap 7)
-- Wrapped boundaries (Kap 8)
-- Testable design (Kap 9)
-- Focused classes (Kap 10)
-- Clean architecture (Kap 11)
+- Boundaries (Kap 8)
+- Unit Test (Kap 9)
+- Classes (Kap 10)
+- Systems (Kap 11)
 
 ---
 

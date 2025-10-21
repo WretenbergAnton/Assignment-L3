@@ -9,7 +9,6 @@ import { PORT } from "./config/env.js";
 import connectToDatabase from "./database/mongodb.js";
 import errorMiddleware from "./middlewares/error.middleware.js";
 
-// Routers
 import authRouter from "./routes/auth.routes.js";
 import workoutApiRouter from "./routes/workout.routes.js";
 import pagesRouter from "./routes/page.routes.js";
@@ -39,11 +38,9 @@ app.use(methodOverride("_method"));
 app.use("/", pagesRouter);
 app.use("/workouts", workoutsPageRouter);
 
-// --- APIs (Bearer token auth). Keep if you also want JSON APIs ---
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/workouts", workoutApiRouter);
 
-// Error handler
 app.use(errorMiddleware);
 
 app.listen(PORT, async () => {

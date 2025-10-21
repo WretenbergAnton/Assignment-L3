@@ -50,7 +50,7 @@ async #verifyPassword(plainPassword, hashedPassword) {
 
 **Hur kapitlet påverkat koden:**
 
-"Don't comment bad code—rewrite it." Jag har minimerat kommentarer genom att göra koden självförklarande. Istället för att skriva `// Loop through workouts` har jag variabelnamn som `for (const workout of workouts)` som är självklart. Kommentarer finns bara där de tillför värde till exempel JSDoc för publika metoder som förklarar parametrar och returvärden, eller vid komplex business logic som Epley-formeln där själva algoritmen inte är uppenbar.
+"Don't comment bad code—rewrite it." Jag har minimerat kommentarer genom att göra koden självförklarande. Istället för att skriva `// Loop through workouts` har jag variabelnamn som `for (const workout of workouts)` som är självklart. Kommentarer finns bara där de tillför värde till exempel JSDoc för publika metoder som förklarar parametrar och returvärden, eller vid komplex business logic som Epley-formeln där själva algoritmen inte är helt uppenbar för alla vad den betyder.
 
 Jag undviker "noise comments" som bara upprepar vad koden gör. Ingen kommentar som `// Set userId` ovanför `this.#userId = userId`. Koden talar för sig själv. De kommentarer som finns förklarar "varför", inte "vad" till exempel varför vi laddar alla workouts i `getAllWorkoutsWithStats()` (för att dashboard visar stats för alla samtidigt).
 
@@ -92,7 +92,7 @@ export class WorkoutController {
 
 **Hur kapitlet påverkat koden:**
 
-Klasser följer "hide implementation, expose behavior". `WorkoutService` döljer sin `#tracker` och `#userId` som privata fält (med # prefix). Utåt exponeras bara beteende via metoder som `createWorkoutWithSet()` och `getWorkoutStats()`. Detta gör att jag kan ändra implementation (t.ex. byta från WorkoutTracker till något annat) utan att påverka användare av klassen.
+Klasser följer "hide implementation, expose behavior". `WorkoutService` döljer sin `#tracker` och `#userId` som privata fält. Utåt exponeras bara beteende via metoder som `createWorkoutWithSet()` och `getWorkoutStats()`. Detta gör att jag kan ändra implementation (t.ex. byta från WorkoutTracker till något annat) utan att påverka användare av klassen.
 
 Jag använder "Law of Demeter" metoder anropar bara metoder på objekt de äger. `WorkoutController` känner till `WorkoutService`, men inte till `WorkoutTracker` eller `Workout`-modellen direkt. 
 
@@ -117,7 +117,7 @@ export class WorkoutService {
 
 "Use Exceptions Rather Than Return Codes." Jag kastar exceptions vid fel istället för att returnera null eller error codes. I `WorkoutService` konstruktorn: `if (!userId) throw new Error("UserId is required")`. Detta tvingar anroparen att hantera felet. Alla async-metoder wrappas i try-catch och delegerar till Express error middleware via `next(err)`.
 
-Felmeddelanden är beskrivande: "Workout not found" istället för bara "Error" eller kryptiska koder. Jag undviker att returnera null - istället kastas exception eller returneras tom array (`[]`) för tomma listor. Detta följer bokens princip om att "Don't Return Null" null leder till defensive programming och många if-checks överallt.
+Felmeddelanden är beskrivande: "Workout not found" istället för bara "Error". Jag undviker att returnera null istället kastas exception eller returneras tom array (`[]`) för tomma listor. Detta följer bokens princip om att "Don't Return Null" null leder till defensive programming och många if-checks överallt.
 
 **Exempel från kod:**
 ```javascript
@@ -170,7 +170,7 @@ const stats = await service.getWorkoutStats(req.params.id);
 
 **Hur kapitlet påverkat koden:**
 
-Även om automatiska tester inte ingår i denna uppgift, har jag designat koden för testbarhet. Klasser har Single Responsibility vilket gör dem lätta att testa isolerat. Dependencies injiceras via konstruktorn (t.ex. `userId` till `WorkoutService`), vilket möjliggör mocking vid test.
+Även om jag inte har använt mig av automatiska tester på grund av tidsbrist, har jag designat koden för testbarhet. Klasser har Single Responsibility vilket gör dem lätta att testa isolerat. Dependencies injiceras via konstruktorn (t.ex. `userId` till `WorkoutService`), vilket möjliggör mocking vid test.
 
 Metoder är små och gör EN sak varje metod kan testas separat. Privata metoder testas indirekt via publika metoder. Till exempel kan `createWorkoutWithSet()` testas genom att verifiera att workout sparas korrekt och att modulen validerar. Koden följer "F.I.R.S.T" principerna testbar kod är Fast, Independent, Repeatable, Self-validating, och Timely.
 
@@ -225,22 +225,15 @@ export class WorkoutService {
 
 "Separate Constructing a System from Using It." Min app följer MVC-arkitektur med tydlig separation: Routes → Controllers → Services → Models/Module. Varje lager har ett tydligt ansvar. Startup-kod i `app.js` är minimal och ren bara Express-konfiguration och server.listen().
 
-Dependency flow är tydligt: Controllers beror på Services, Services beror på Models och Module. ALDRIG tvärtom. Detta följer "Dependency Inversion Principle". Systemet kan växa genom att lägga till nya klasser, inte modifiera befintliga (Open-Closed Principle). Om jag vill lägga till PRs eller weekly summary skapar jag nya metoder i `WorkoutService` utan att röra befintlig kod.
+Dependency flow är tydligt: Controllers beror på Services, Services beror på Models och Module. ALDRIG tvärtom. Vilket gör att den följer "Dependency Inversion Principle". Systemet kan växa genom att lägga till nya klasser, inte modifiera befintliga Open-Closed Principle. Om jag vill lägga till PRs eller weekly summary skapar jag nya metoder i `WorkoutService` utan att röra befintlig kod.
 
-**Systemarkitektur:**
-(| = pil ner)
-```
-HTTP Request
-    |
-Routes (page.routes.js)
-    |
-Controllers (WorkoutController) - Hanterar HTTP
-    |
-Services (WorkoutService) - Business logic
-    |
-Models (Mongoose) + Module (WorkoutTracker) - Data & beräkningar
-    |
-MongoDB
+**Exempel från kod:**
+```javascript
+// app.js - Minimal startup, bara konfiguration
+app.use("/workouts", workoutsPageRouter);
+app.listen(PORT, async () => {
+  await connectToDatabase();
+});
 ```
 
 ---
